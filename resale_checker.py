@@ -16,9 +16,8 @@ with sync_playwright() as p:
     rendered_html = page.content()
     browser.close()
 
-# Now you CAN use BeautifulSoup perfectly!
+# Extract ticket resales from web page using BeautifulSoup
 soup = BeautifulSoup(rendered_html, 'html.parser')
-
 program_links = soup.find_all("a", href=re.compile(r"^/program/"))
 
 # Extract and clean the text from each tag
