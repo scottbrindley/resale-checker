@@ -7,6 +7,8 @@ def check_resales():
     url = "https://darkmofo.net.au/resales"
     resale_events = []
 
+    print(f"Checking for ticket resales at {url}...")
+
     with sync_playwright() as p:
         # Launch a headless browser
         browser = p.chromium.launch(headless=True)
