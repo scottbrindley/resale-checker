@@ -11,11 +11,12 @@ def check_resales():
 
     with sync_playwright() as p:
         # Launch a headless browser
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=True, args=["--disable-dev-shm-usage"])
         page = browser.new_page()
         
-        # Navigate to the page and wait until all network activity stops
-        page.goto(url, wait_until="networkidle")
+        # Wait for content containing resales to load
+        page.goto(url)
+        page.wait_for_selector("a[href^='/program/']", timeout=10000)
         
         # Grab the completed HTML after JS has run
         rendered_html = page.content()
